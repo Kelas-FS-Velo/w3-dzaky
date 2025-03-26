@@ -39,8 +39,19 @@ The system follows a microservices-inspired modular architecture:
 | id         | UUID       | Primary Key                |
 | title      | String     | Book title                 |
 | author     | String     | Book author                |
-| genre      | String     | Genre category             |
 | available  | Boolean    | Availability status        |
+
+#### **Genres Table**
+| Column | Type  | Description  |
+|--------|------|-------------|
+| id     | UUID | Primary Key  |
+| name   | String | Genre name |
+
+#### **Book_Genre (Pivot Table)**
+| Column    | Type  | Description                          |
+|-----------|------|--------------------------------------|
+| book_id   | UUID | Foreign Key to Books table         |
+| genre_id  | UUID | Foreign Key to Genres table        |
 
 #### **Borrowed Books Table**
 | Column      | Type        | Description                |

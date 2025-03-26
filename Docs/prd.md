@@ -17,7 +17,7 @@ Smart Library with AI is a system that leverages artificial intelligence to enha
 ### **3. Technology Stack**
 - **Backend:** Laravel
 - **Frontend:** Nuxt.js
-- **Database:** MySQL / PostgreSQL
+- **Database:** MySQL
 - **AI:** Python-based AI engine or third-party AI APIs
 - **Authentication:** Laravel Passport or Sanctum
 
