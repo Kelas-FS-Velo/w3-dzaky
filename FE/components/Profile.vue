@@ -18,10 +18,10 @@
       </div>
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-lg font-medium text-gray-900">Projects</h3>
-          <p class="mt-2 text-3xl font-bold text-indigo-600">42</p>
-        </div>
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-medium text-gray-900">Projects</h3>
+            <p class="mt-2 text-3xl font-bold text-indigo-600">42</p>
+          </div>
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h3 class="text-lg font-medium text-gray-900">Followers</h3>
           <p class="mt-2 text-3xl font-bold text-indigo-600">1.2K</p>

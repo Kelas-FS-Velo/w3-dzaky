@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home Page</h1>
+    <h1>fawk</h1>
     <nuxt-link to="/profile">Profile</nuxt-link>
   </div>
 </template>
