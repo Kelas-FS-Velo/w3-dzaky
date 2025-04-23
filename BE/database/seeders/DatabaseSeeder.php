@@ -17,16 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        Book::factory(10)->create();
+        Book::factory(50)->create();
         
-        BorrowedBook::factory(10)->create();
+        BorrowedBook::factory(20)->create();
 
         $genres = ["Fiction", "Non-Fiction", "Horror", "Fantasy", "Tutorial", "Sci-fi", "Phylosiphy", "Biograpghy", "Kids"];
 
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         
-        GenreBook::factory(20)->create();
+        GenreBook::factory(100)->create();
         
     }
 }

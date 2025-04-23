@@ -18,7 +18,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('genre')->get();
+        $books = Book::with('genre')->paginate(10);;
         
         return BookResource::collection($books);
     }

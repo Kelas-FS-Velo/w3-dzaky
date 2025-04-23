@@ -12,6 +12,11 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/profile', [UserController::class, 'index']);
 
+Route::prefix('user')->group(function (){
+    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/register', [UserController::class, 'register']);
+});
+
 Route::prefix('book')->group(function () {
     Route::get('/', [BookController::class, 'index']);
     Route::post('/add', [BookController::class, 'store']);

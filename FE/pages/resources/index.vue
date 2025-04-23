@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="book in books" :key="book.id">
+          <tr v-for="book in books.data" :key="book.id">
             <td class="border px-4 py-2">{{ book.id }}</td>
             <td class="border px-4 py-2">{{ book.title }}</td>
             <td class="border px-4 py-2">{{ book.available ? 'Yes' : 'No' }}</td>
@@ -48,6 +48,52 @@
           </tr>
         </tbody>
       </table>
+
+      <!-- Pagination -->
+      <div v-if="books.meta" class="mt-6 flex justify-center">
+        <nav aria-label="Page navigation">
+          <ul class="inline-flex items-center space-x-2">
+            <!-- Previous Button (Manually handled) -->
+            <li>
+              <button
+                @click="fetchBooks(books.meta.links[0].url)"
+                :disabled="!books.meta.links[0].url"
+                class="px-3 py-1.5 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                &laquo; Previous
+              </button>
+            </li>
+
+            <!-- Loop through page numbers, excluding the first and last link (Previous & Next) -->
+            <li v-for="link in books.meta.links.slice(1, -1)" :key="link.label">
+              <button
+                @click="fetchBooks(link.url)"
+                :disabled="link.active"
+                :aria-current="link.active ? 'page' : null"
+                class="px-3 py-1.5 text-sm font-medium"
+                :class="{
+                  'text-blue-600 bg-blue-100 border-blue-300': link.active,
+                  'text-gray-500 bg-white border-gray-300 hover:bg-gray-100': !link.active
+                }"
+              >
+                {{ link.label }}
+              </button>
+            </li>
+
+            <!-- Next Button (Manually handled) -->
+            <li>
+              <button
+                @click="fetchBooks(books.meta.links[6].url)"
+                :disabled="!books.meta.links[6].url"
+                class="px-3 py-1.5 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                Next &raquo;
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
 
       <!-- Book detail modal -->
       <div v-if="showModal" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
@@ -75,22 +121,21 @@ const books = ref([]);
 const pending = ref(false);
 const error = ref(null);
 
-async function fetchBooks() {
+async function fetchBooks(url = 'http://127.0.0.1:8000/api/book?page=1') {
   pending.value = true;
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/book');
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Error fetching books');
     }
     const data = await response.json();
-    books.value = data.data; // Update books with fresh data
+    books.value = data;
   } catch (err) {
     error.value = err.message;
   } finally {
     pending.value = false;
   }
 }
-
 const showModal = ref(false);
 const modalData = ref({
   title: '',
@@ -118,7 +163,7 @@ async function deleteBook(bookId) {
 
     if (response.ok) {
       // After deletion, re-fetch the book list to ensure it is updated
-      await fetchBooks(); // This will refresh the book list
+      await fetchBooks(books.value.meta.current_page); // This will refresh the book list
     } else {
       alert(responseData.message || 'Failed to delete the book. Please try again.');
     }

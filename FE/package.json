@@ -16,6 +16,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "@tailwindcss/vite": "^4.0.14",
     "@unhead/vue": "^2.0.0-rc.8",
+    "axios": "^1.8.4",
+    "jwt-decode": "^4.0.0",
     "nuxt": "^3.16.0",
     "tailwindcss": "^4.0.14",
     "typescript": "^5.8.2",
